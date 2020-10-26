@@ -20,6 +20,14 @@ export default class RandomChar extends Component {
     onCharLoaded = (char) => {
         this.setState({
             char,
+            loading: false,
+            error: false
+        })
+    }
+
+    onError = (err) => {
+        this.setState({
+            error: true,
             loading: false
         })
     }
@@ -27,7 +35,8 @@ export default class RandomChar extends Component {
     updateChar() {
         const id = Math.floor(Math.random() * 140 + 25); // 25-140
         this.gotService.getCharacter(id)
-            .then(this.onCharLoaded);
+            .then(this.onCharLoaded)
+            .catch(this.onError);
     }
 
     render() {
@@ -39,13 +48,12 @@ export default class RandomChar extends Component {
                     (died = "Unknown")
                 }; */
 
-        if (loading) {
-            return <Spinner />
-        }
-
+         
+        const content = loading ? <Spinner/> : <View char={char}/>;
+        
         return (
             <div className="random-block rounded">
-                <View char={char} />
+                {content}
             </div>
         );
     }
