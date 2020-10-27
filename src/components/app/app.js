@@ -7,6 +7,9 @@ import CharDetails from '../charDetails';
 
 
 const App = () => {
+
+    const buttonVisible = false;
+
     return (
         <> 
             <Container>
@@ -15,7 +18,10 @@ const App = () => {
             <Container>
                 <Row>
                     <Col lg={{size: 5, offset: 0}}>
-                        <RandomChar/>
+                        if {buttonVisible} {
+                            <RandomChar />
+                        };
+                        <button type='button'>To do invisible</button>
                     </Col>
                 </Row>
                 <Row>
@@ -30,5 +36,7 @@ const App = () => {
         </>
     );
 };
+
+
 
 export default App;
